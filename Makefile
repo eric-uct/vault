@@ -15,8 +15,7 @@ EXTERNAL_TOOLS=\
 	github.com/hashicorp/go-bindata/... \
 	github.com/mitchellh/gox \
 	github.com/kardianos/govendor \
-	github.com/client9/misspell/cmd/misspell \
-	github.com/golangci/golangci-lint/cmd/golangci-lint@1.24.0
+	github.com/client9/misspell/cmd/misspell
 GOFMT_FILES?=$$(find . -name '*.go' | grep -v pb.go | grep -v vendor)
 
 
@@ -130,8 +129,9 @@ ci-verify:
 bootstrap:
 	@for tool in  $(EXTERNAL_TOOLS) ; do \
 		echo "Installing/Updating $$tool" ; \
-		$(GO_CMD) mod edit -require $$tool ; \
+		GO111MODULE=off $(GO_CMD) get -u $$tool; \
 	done
+	$(GO_CMD) mod edit -require github.com/golangci/golangci-lint/cmd/golangci-lint@1.24.0
 	$(GO_CMD) get -v -t ./...   
 	$(GO_CMD) build
 	$(GO_CMD) install
