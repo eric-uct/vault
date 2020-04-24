@@ -130,7 +130,7 @@ ci-verify:
 bootstrap:
 	@for tool in  $(EXTERNAL_TOOLS) ; do \
 		echo "Installing/Updating $$tool" ; \
-		$(GO_CMD) mod edit -require $$tool
+		$(GO_CMD) mod edit -require $$tool \
 	done
 	$(GO_CMD) get -v -t ./...   
 	$(GO_CMD) build
