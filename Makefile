@@ -15,7 +15,8 @@ EXTERNAL_TOOLS=\
 	github.com/hashicorp/go-bindata/... \
 	github.com/mitchellh/gox \
 	github.com/kardianos/govendor \
-	github.com/client9/misspell/cmd/misspell
+	github.com/client9/misspell/cmd/misspell \
+	github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
 GOFMT_FILES?=$$(find . -name '*.go' | grep -v pb.go | grep -v vendor)
 
 
@@ -127,12 +128,10 @@ ci-verify:
 
 # bootstrap the build by downloading additional tools
 bootstrap:
-	go clean -modcache
 	@for tool in  $(EXTERNAL_TOOLS) ; do \
 		echo "Installing/Updating $$tool" ; \
 		GO111MODULE=off $(GO_CMD) get -u $$tool; \
 	done
-	GO111MODULE=on $(GO_CMD) get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
 
 # Note: if you have plugins in GOPATH you can update all of them via something like:
 # for i in $(ls | grep vault-plugin-); do cd $i; git remote update; git reset --hard origin/master; dep ensure -update; git add .; git commit; git push; cd ..; done
