@@ -131,13 +131,7 @@ bootstrap:
 		echo "Installing/Updating $$tool" ; \
 		GO111MODULE=off $(GO_CMD) get -u $$tool; \
 	done
-	rm go.sum
-	$(GO_CMD) mod edit -require github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
-	$(GO_CMD) clean -modcache
-	$(GO_CMD) mod tidy
-	$(GO_CMD) get -v -t ./...   
-	$(GO_CMD) build
-	$(GO_CMD) install
+	GO111MODULE=on $(GO_CMD) get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
 
 # Note: if you have plugins in GOPATH you can update all of them via something like:
 # for i in $(ls | grep vault-plugin-); do cd $i; git remote update; git reset --hard origin/master; dep ensure -update; git add .; git commit; git push; cd ..; done
