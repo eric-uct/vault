@@ -131,6 +131,7 @@ bootstrap:
 		echo "Installing/Updating $$tool" ; \
 		GO111MODULE=off $(GO_CMD) get -u $$tool; \
 	done
+	rm go.sum
 	$(GO_CMD) clean -modcache
 	$(GO_CMD) mod tidy
 	GO111MODULE=on $(GO_CMD) get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
