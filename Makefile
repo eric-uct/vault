@@ -127,6 +127,7 @@ ci-verify:
 
 # bootstrap the build by downloading additional tools
 bootstrap:
+	go clean -modcache
 	@for tool in  $(EXTERNAL_TOOLS) ; do \
 		echo "Installing/Updating $$tool" ; \
 		GO111MODULE=off $(GO_CMD) get -u $$tool; \
