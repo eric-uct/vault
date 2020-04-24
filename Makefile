@@ -132,6 +132,8 @@ bootstrap:
 		GO111MODULE=off $(GO_CMD) get -u $$tool; \
 	done
 	$(GO_CMD) mod edit -require github.com/golangci/golangci-lint/cmd/golangci-lint@v1.24.0
+	$(GO_CMD) clean -modcache
+	$(GO_CMD) mod tidy
 	$(GO_CMD) get -v -t ./...   
 	$(GO_CMD) build
 	$(GO_CMD) install
