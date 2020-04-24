@@ -128,7 +128,6 @@ ci-verify:
 
 # bootstrap the build by downloading additional tools
 bootstrap:
-	$(GO_CMD) mod init .
 	@for tool in  $(EXTERNAL_TOOLS) ; do \
 		echo "Installing/Updating $$tool" ; \
 		$(GO_CMD) mod edit -require $$tool
